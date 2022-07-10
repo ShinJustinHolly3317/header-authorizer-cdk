@@ -1,0 +1,156 @@
+{
+  "version": "16.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "BasicAuthLambdaStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "BasicAuthLambdaStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "BasicAuthLambdaStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "BasicAuthLambdaStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/2ddceea18e3442287b024bfff96c79e5262fc3c2af968d3a4b542b2b1d3171b1.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "BasicAuthLambdaStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "BasicAuthLambdaStack.assets"
+      ],
+      "metadata": {
+        "/BasicAuthLambdaStack/basicAuthHalder/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "basicAuthHalderServiceRole6A48A972"
+          }
+        ],
+        "/BasicAuthLambdaStack/basicAuthHalder/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "basicAuthHalderB215C301"
+          }
+        ],
+        "/BasicAuthLambdaStack/LoginAuthTracker": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "LoginAuthTracker71FF6C1F"
+            }
+          }
+        ],
+        "/BasicAuthLambdaStack/LoginAuthTracker/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LoginAuthTracker71FF6C1F"
+          }
+        ],
+        "/BasicAuthLambdaStack/LoginCounterHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LoginCounterHandlerServiceRoleEA55B8B3"
+          }
+        ],
+        "/BasicAuthLambdaStack/LoginCounterHandler/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LoginCounterHandlerServiceRoleDefaultPolicyAB36BAA9"
+          }
+        ],
+        "/BasicAuthLambdaStack/LoginCounterHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LoginCounterHandlerBEC0D618"
+          }
+        ],
+        "/BasicAuthLambdaStack/LoginCounterApi/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LoginCounterApi11AF632B"
+          }
+        ],
+        "/BasicAuthLambdaStack/LoginCounterApi/DefaultStage/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LoginCounterApiDefaultStage4BA2C9F6"
+          }
+        ],
+        "/BasicAuthLambdaStack/LoginCounterApi/GET--login/loginCounterApiIntergration/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LoginCounterApiGETloginloginCounterApiIntergration6EDBA160"
+          }
+        ],
+        "/BasicAuthLambdaStack/LoginCounterApi/GET--login/loginCounterApiIntergration-Permission": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LoginCounterApiGETloginloginCounterApiIntergrationPermissionCD5F22D7"
+          }
+        ],
+        "/BasicAuthLambdaStack/LoginCounterApi/GET--login/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LoginCounterApiGETlogin40D37CF7"
+          }
+        ],
+        "/BasicAuthLambdaStack/LoginCounterApi/BasicAuthorizer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LoginCounterApiBasicAuthorizer8EF93182"
+          }
+        ],
+        "/BasicAuthLambdaStack/LoginCounterApi/BasicAuthLambdaStackLoginCounterApiBasicAuthorizerA7BE1EC9-Permission": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LoginCounterApiBasicAuthLambdaStackLoginCounterApiBasicAuthorizerA7BE1EC9Permission9641DDB0"
+          }
+        ],
+        "/BasicAuthLambdaStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/BasicAuthLambdaStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/BasicAuthLambdaStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/BasicAuthLambdaStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "BasicAuthLambdaStack"
+    }
+  }
+}
