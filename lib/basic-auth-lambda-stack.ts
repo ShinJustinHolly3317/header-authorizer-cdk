@@ -1,4 +1,5 @@
 import { Stack, StackProps } from 'aws-cdk-lib';
+import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
@@ -19,7 +20,8 @@ export class BasicAuthLambdaStack extends Stack {
 
     const table = new dynamodb.Table(this, 'LoginAuthTracker', {
       tableName: 'LoginAuthTracker',
-      partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING}
+      partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING},
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
     const loginCounterHandler = new lambda.Function(this, 'LoginCounterHandler', {

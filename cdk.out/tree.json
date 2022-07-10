@@ -211,6 +211,61 @@
                                           ]
                                         }
                                       ]
+                                    },
+                                    {
+                                      "Action": [
+                                        "s3:GetObject*",
+                                        "s3:GetBucket*",
+                                        "s3:List*"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "AWS": {
+                                          "Fn::Join": [
+                                            "",
+                                            [
+                                              "arn:",
+                                              {
+                                                "Ref": "AWS::Partition"
+                                              },
+                                              ":iam::",
+                                              {
+                                                "Ref": "AWS::AccountId"
+                                              },
+                                              ":role/cdk-hnb659fds-deploy-role-",
+                                              {
+                                                "Ref": "AWS::AccountId"
+                                              },
+                                              "-",
+                                              {
+                                                "Ref": "AWS::Region"
+                                              }
+                                            ]
+                                          ]
+                                        }
+                                      },
+                                      "Resource": [
+                                        {
+                                          "Fn::GetAtt": [
+                                            "BasicAuthPipelineArtifactsBucket04D85917",
+                                            "Arn"
+                                          ]
+                                        },
+                                        {
+                                          "Fn::Join": [
+                                            "",
+                                            [
+                                              {
+                                                "Fn::GetAtt": [
+                                                  "BasicAuthPipelineArtifactsBucket04D85917",
+                                                  "Arn"
+                                                ]
+                                              },
+                                              "/*"
+                                            ]
+                                          ]
+                                        }
+                                      ]
                                     }
                                   ],
                                   "Version": "2012-10-17"
@@ -341,6 +396,53 @@
                                           "Arn"
                                         ]
                                       }
+                                    },
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Resource": {
+                                        "Fn::GetAtt": [
+                                          "BasicAuthPipelineAssetsFileAsset1CodePipelineActionRole2D9FF312",
+                                          "Arn"
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Resource": {
+                                        "Fn::GetAtt": [
+                                          "BasicAuthPipelineAssetsFileAsset2CodePipelineActionRole5EEBDC3B",
+                                          "Arn"
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Resource": {
+                                        "Fn::Join": [
+                                          "",
+                                          [
+                                            "arn:",
+                                            {
+                                              "Ref": "AWS::Partition"
+                                            },
+                                            ":iam::",
+                                            {
+                                              "Ref": "AWS::AccountId"
+                                            },
+                                            ":role/cdk-hnb659fds-deploy-role-",
+                                            {
+                                              "Ref": "AWS::AccountId"
+                                            },
+                                            "-",
+                                            {
+                                              "Ref": "AWS::Region"
+                                            }
+                                          ]
+                                        ]
+                                      }
                                     }
                                   ],
                                   "Version": "2012-10-17"
@@ -449,7 +551,7 @@
                                   "ProjectName": {
                                     "Ref": "BasicAuthPipelineBuildSynthStepCdkBuildProject58E50159"
                                   },
-                                  "EnvironmentVariables": "[{\"name\":\"_PROJECT_CONFIG_HASH\",\"type\":\"PLAINTEXT\",\"value\":\"a22837f5935d0c111d0d781ed0aaaf24f5793731bdb2eb8c6b4ffa9afe34558c\"}]"
+                                  "EnvironmentVariables": "[{\"name\":\"_PROJECT_CONFIG_HASH\",\"type\":\"PLAINTEXT\",\"value\":\"4e6b4b99747f3ea63a19448c290d236c048ee1c4f12cb76897e20cd4e4e8c4dd\"}]"
                                 },
                                 "runOrder": 1,
                                 "roleArn": {
@@ -488,6 +590,174 @@
                                   "Fn::GetAtt": [
                                     "BasicAuthPipelineUpdatePipelineSelfMutateCodePipelineActionRole945CBFF4",
                                     "Arn"
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Assets",
+                            "actions": [
+                              {
+                                "name": "FileAsset1",
+                                "inputArtifacts": [
+                                  {
+                                    "name": "SynthStep_Output"
+                                  }
+                                ],
+                                "actionTypeId": {
+                                  "category": "Build",
+                                  "version": "1",
+                                  "owner": "AWS",
+                                  "provider": "CodeBuild"
+                                },
+                                "configuration": {
+                                  "ProjectName": {
+                                    "Ref": "BasicAuthPipelineAssetsFileAsset13179B215"
+                                  }
+                                },
+                                "runOrder": 1,
+                                "roleArn": {
+                                  "Fn::GetAtt": [
+                                    "BasicAuthPipelineAssetsFileAsset1CodePipelineActionRole2D9FF312",
+                                    "Arn"
+                                  ]
+                                }
+                              },
+                              {
+                                "name": "FileAsset2",
+                                "inputArtifacts": [
+                                  {
+                                    "name": "SynthStep_Output"
+                                  }
+                                ],
+                                "actionTypeId": {
+                                  "category": "Build",
+                                  "version": "1",
+                                  "owner": "AWS",
+                                  "provider": "CodeBuild"
+                                },
+                                "configuration": {
+                                  "ProjectName": {
+                                    "Ref": "BasicAuthPipelineAssetsFileAsset21396B358"
+                                  }
+                                },
+                                "runOrder": 1,
+                                "roleArn": {
+                                  "Fn::GetAtt": [
+                                    "BasicAuthPipelineAssetsFileAsset2CodePipelineActionRole5EEBDC3B",
+                                    "Arn"
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Deploy",
+                            "actions": [
+                              {
+                                "name": "Prepare",
+                                "inputArtifacts": [
+                                  {
+                                    "name": "SynthStep_Output"
+                                  }
+                                ],
+                                "actionTypeId": {
+                                  "category": "Deploy",
+                                  "version": "1",
+                                  "owner": "AWS",
+                                  "provider": "CloudFormation"
+                                },
+                                "configuration": {
+                                  "StackName": "Deploy-BasicAuthLambdaStage",
+                                  "Capabilities": "CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND",
+                                  "RoleArn": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":iam::",
+                                        {
+                                          "Ref": "AWS::AccountId"
+                                        },
+                                        ":role/cdk-hnb659fds-cfn-exec-role-",
+                                        {
+                                          "Ref": "AWS::AccountId"
+                                        },
+                                        "-",
+                                        {
+                                          "Ref": "AWS::Region"
+                                        }
+                                      ]
+                                    ]
+                                  },
+                                  "ActionMode": "CHANGE_SET_REPLACE",
+                                  "ChangeSetName": "PipelineChange",
+                                  "TemplatePath": "SynthStep_Output::assembly-BasicAuthLambdaStack-Deploy/BasicAuthLambdaStackDeployBasicAuthLambdaStageB8479B75.template.json"
+                                },
+                                "runOrder": 1,
+                                "roleArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":iam::",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":role/cdk-hnb659fds-deploy-role-",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      "-",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      }
+                                    ]
+                                  ]
+                                }
+                              },
+                              {
+                                "name": "Deploy",
+                                "actionTypeId": {
+                                  "category": "Deploy",
+                                  "version": "1",
+                                  "owner": "AWS",
+                                  "provider": "CloudFormation"
+                                },
+                                "configuration": {
+                                  "StackName": "Deploy-BasicAuthLambdaStage",
+                                  "ActionMode": "CHANGE_SET_EXECUTE",
+                                  "ChangeSetName": "PipelineChange"
+                                },
+                                "runOrder": 2,
+                                "roleArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":iam::",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":role/cdk-hnb659fds-deploy-role-",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      "-",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      }
+                                    ]
                                   ]
                                 }
                               }
@@ -995,7 +1265,7 @@
                                     },
                                     "source": {
                                       "type": "CODEPIPELINE",
-                                      "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g yarn\",\n        \"yarn global add aws-cdk\",\n        \"yarn global add esbuild\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"yarn\",\n        \"ls\",\n        \"pwd\",\n        \"sudo chmod u+x *.sh\",\n        \"./esbuild.sh\",\n        \"npx cdk synth\"\n      ]\n    }\n  },\n  \"artifacts\": {\n    \"base-directory\": \"cdk.out\",\n    \"files\": \"**/*\"\n  }\n}"
+                                      "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g yarn\",\n        \"yarn global add aws-cdk\",\n        \"yarn global add esbuild\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"yarn\",\n        \"./esbuild.sh\",\n        \"npx cdk synth\"\n      ]\n    }\n  },\n  \"artifacts\": {\n    \"base-directory\": \"cdk.out\",\n    \"files\": \"**/*\"\n  }\n}"
                                     },
                                     "cache": {
                                       "type": "NO_CACHE"
@@ -1241,6 +1511,300 @@
                     "constructInfo": {
                       "fqn": "constructs.Construct",
                       "version": "10.1.43"
+                    }
+                  },
+                  "Assets": {
+                    "id": "Assets",
+                    "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Assets",
+                    "children": {
+                      "FileAsset1": {
+                        "id": "FileAsset1",
+                        "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Assets/FileAsset1",
+                        "children": {
+                          "CodePipelineActionRole": {
+                            "id": "CodePipelineActionRole",
+                            "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Assets/FileAsset1/CodePipelineActionRole",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Assets/FileAsset1/CodePipelineActionRole/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                                  "aws:cdk:cloudformation:props": {
+                                    "assumeRolePolicyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": "sts:AssumeRole",
+                                          "Effect": "Allow",
+                                          "Principal": {
+                                            "AWS": {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  "arn:",
+                                                  {
+                                                    "Ref": "AWS::Partition"
+                                                  },
+                                                  ":iam::",
+                                                  {
+                                                    "Ref": "AWS::AccountId"
+                                                  },
+                                                  ":root"
+                                                ]
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                                  "version": "2.15.0"
+                                }
+                              },
+                              "DefaultPolicy": {
+                                "id": "DefaultPolicy",
+                                "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Assets/FileAsset1/CodePipelineActionRole/DefaultPolicy",
+                                "children": {
+                                  "Resource": {
+                                    "id": "Resource",
+                                    "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Assets/FileAsset1/CodePipelineActionRole/DefaultPolicy/Resource",
+                                    "attributes": {
+                                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                      "aws:cdk:cloudformation:props": {
+                                        "policyDocument": {
+                                          "Statement": [
+                                            {
+                                              "Action": [
+                                                "codebuild:BatchGetBuilds",
+                                                "codebuild:StartBuild",
+                                                "codebuild:StopBuild"
+                                              ],
+                                              "Effect": "Allow",
+                                              "Resource": {
+                                                "Fn::GetAtt": [
+                                                  "BasicAuthPipelineAssetsFileAsset13179B215",
+                                                  "Arn"
+                                                ]
+                                              }
+                                            }
+                                          ],
+                                          "Version": "2012-10-17"
+                                        },
+                                        "policyName": "BasicAuthPipelineAssetsFileAsset1CodePipelineActionRoleDefaultPolicy975CB8C3",
+                                        "roles": [
+                                          {
+                                            "Ref": "BasicAuthPipelineAssetsFileAsset1CodePipelineActionRole2D9FF312"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "constructInfo": {
+                                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                                      "version": "2.15.0"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                                  "version": "2.15.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.Role",
+                              "version": "2.15.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "constructs.Construct",
+                          "version": "10.1.43"
+                        }
+                      },
+                      "FileAsset2": {
+                        "id": "FileAsset2",
+                        "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Assets/FileAsset2",
+                        "children": {
+                          "CodePipelineActionRole": {
+                            "id": "CodePipelineActionRole",
+                            "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Assets/FileAsset2/CodePipelineActionRole",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Assets/FileAsset2/CodePipelineActionRole/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                                  "aws:cdk:cloudformation:props": {
+                                    "assumeRolePolicyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": "sts:AssumeRole",
+                                          "Effect": "Allow",
+                                          "Principal": {
+                                            "AWS": {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  "arn:",
+                                                  {
+                                                    "Ref": "AWS::Partition"
+                                                  },
+                                                  ":iam::",
+                                                  {
+                                                    "Ref": "AWS::AccountId"
+                                                  },
+                                                  ":root"
+                                                ]
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                                  "version": "2.15.0"
+                                }
+                              },
+                              "DefaultPolicy": {
+                                "id": "DefaultPolicy",
+                                "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Assets/FileAsset2/CodePipelineActionRole/DefaultPolicy",
+                                "children": {
+                                  "Resource": {
+                                    "id": "Resource",
+                                    "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Assets/FileAsset2/CodePipelineActionRole/DefaultPolicy/Resource",
+                                    "attributes": {
+                                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                      "aws:cdk:cloudformation:props": {
+                                        "policyDocument": {
+                                          "Statement": [
+                                            {
+                                              "Action": [
+                                                "codebuild:BatchGetBuilds",
+                                                "codebuild:StartBuild",
+                                                "codebuild:StopBuild"
+                                              ],
+                                              "Effect": "Allow",
+                                              "Resource": {
+                                                "Fn::GetAtt": [
+                                                  "BasicAuthPipelineAssetsFileAsset21396B358",
+                                                  "Arn"
+                                                ]
+                                              }
+                                            }
+                                          ],
+                                          "Version": "2012-10-17"
+                                        },
+                                        "policyName": "BasicAuthPipelineAssetsFileAsset2CodePipelineActionRoleDefaultPolicy9692284E",
+                                        "roles": [
+                                          {
+                                            "Ref": "BasicAuthPipelineAssetsFileAsset2CodePipelineActionRole5EEBDC3B"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "constructInfo": {
+                                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                                      "version": "2.15.0"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                                  "version": "2.15.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.Role",
+                              "version": "2.15.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "constructs.Construct",
+                          "version": "10.1.43"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.1.43"
+                    }
+                  },
+                  "Deploy": {
+                    "id": "Deploy",
+                    "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Deploy",
+                    "children": {
+                      "Prepare": {
+                        "id": "Prepare",
+                        "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Deploy/Prepare",
+                        "constructInfo": {
+                          "fqn": "constructs.Construct",
+                          "version": "10.1.43"
+                        }
+                      },
+                      "Deploy": {
+                        "id": "Deploy",
+                        "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Deploy/Deploy",
+                        "constructInfo": {
+                          "fqn": "constructs.Construct",
+                          "version": "10.1.43"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.1.43"
+                    }
+                  },
+                  "arn:${AWS::Partition}:iam::${AWS::AccountId}:role--cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}": {
+                    "id": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role--cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+                    "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/arn:${AWS::Partition}:iam::${AWS::AccountId}:role--cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "ImmutableRolearn:${AWS::Partition}:iam::${AWS::AccountId}:role--cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}": {
+                    "id": "ImmutableRolearn:${AWS::Partition}:iam::${AWS::AccountId}:role--cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+                    "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/ImmutableRolearn:${AWS::Partition}:iam::${AWS::AccountId}:role--cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+                    "children": {
+                      "8389e75f-0810-4838-bf64-d6f85a95cf83": {
+                        "id": "8389e75f-0810-4838-bf64-d6f85a95cf83",
+                        "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/ImmutableRolearn:${AWS::Partition}:iam::${AWS::AccountId}:role--cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}/8389e75f-0810-4838-bf64-d6f85a95cf83",
+                        "constructInfo": {
+                          "fqn": "constructs.Construct",
+                          "version": "10.1.43"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "arn:${AWS::Partition}:iam::${AWS::AccountId}:role--cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}": {
+                    "id": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role--cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+                    "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/arn:${AWS::Partition}:iam::${AWS::AccountId}:role--cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "ImmutableRolearn:${AWS::Partition}:iam::${AWS::AccountId}:role--cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}": {
+                    "id": "ImmutableRolearn:${AWS::Partition}:iam::${AWS::AccountId}:role--cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+                    "path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/ImmutableRolearn:${AWS::Partition}:iam::${AWS::AccountId}:role--cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.15.0"
                     }
                   }
                 },
@@ -1532,10 +2096,997 @@
                   "fqn": "constructs.Construct",
                   "version": "10.1.43"
                 }
+              },
+              "Assets": {
+                "id": "Assets",
+                "path": "BasicAuthLambdaStack/BasicAuthPipeline/Assets",
+                "children": {
+                  "FileRole": {
+                    "id": "FileRole",
+                    "path": "BasicAuthLambdaStack/BasicAuthPipeline/Assets/FileRole",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "BasicAuthLambdaStack/BasicAuthPipeline/Assets/FileRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "codebuild.amazonaws.com"
+                                  }
+                                },
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "AWS": {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":iam::",
+                                          {
+                                            "Ref": "AWS::AccountId"
+                                          },
+                                          ":root"
+                                        ]
+                                      ]
+                                    }
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.15.0"
+                        }
+                      },
+                      "DefaultPolicy": {
+                        "id": "DefaultPolicy",
+                        "path": "BasicAuthLambdaStack/BasicAuthPipeline/Assets/FileRole/DefaultPolicy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "BasicAuthLambdaStack/BasicAuthPipeline/Assets/FileRole/DefaultPolicy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                              "aws:cdk:cloudformation:props": {
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": [
+                                        "logs:CreateLogGroup",
+                                        "logs:CreateLogStream",
+                                        "logs:PutLogEvents"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": {
+                                        "Fn::Join": [
+                                          "",
+                                          [
+                                            "arn:",
+                                            {
+                                              "Ref": "AWS::Partition"
+                                            },
+                                            ":logs:",
+                                            {
+                                              "Ref": "AWS::Region"
+                                            },
+                                            ":",
+                                            {
+                                              "Ref": "AWS::AccountId"
+                                            },
+                                            ":log-group:/aws/codebuild/*"
+                                          ]
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "Action": [
+                                        "codebuild:CreateReportGroup",
+                                        "codebuild:CreateReport",
+                                        "codebuild:UpdateReport",
+                                        "codebuild:BatchPutTestCases",
+                                        "codebuild:BatchPutCodeCoverages"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": {
+                                        "Fn::Join": [
+                                          "",
+                                          [
+                                            "arn:",
+                                            {
+                                              "Ref": "AWS::Partition"
+                                            },
+                                            ":codebuild:",
+                                            {
+                                              "Ref": "AWS::Region"
+                                            },
+                                            ":",
+                                            {
+                                              "Ref": "AWS::AccountId"
+                                            },
+                                            ":report-group/*"
+                                          ]
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "Action": [
+                                        "codebuild:BatchGetBuilds",
+                                        "codebuild:StartBuild",
+                                        "codebuild:StopBuild"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": "*"
+                                    },
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Resource": [
+                                        {
+                                          "Fn::Sub": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Action": [
+                                        "s3:GetObject*",
+                                        "s3:GetBucket*",
+                                        "s3:List*"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": [
+                                        {
+                                          "Fn::GetAtt": [
+                                            "BasicAuthPipelineArtifactsBucket04D85917",
+                                            "Arn"
+                                          ]
+                                        },
+                                        {
+                                          "Fn::Join": [
+                                            "",
+                                            [
+                                              {
+                                                "Fn::GetAtt": [
+                                                  "BasicAuthPipelineArtifactsBucket04D85917",
+                                                  "Arn"
+                                                ]
+                                              },
+                                              "/*"
+                                            ]
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "policyName": "BasicAuthPipelineAssetsFileRoleDefaultPolicy4E3D1F6F",
+                                "roles": [
+                                  {
+                                    "Ref": "BasicAuthPipelineAssetsFileRole8F1BA38A"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                              "version": "2.15.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Policy",
+                          "version": "2.15.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "FileAsset1": {
+                    "id": "FileAsset1",
+                    "path": "BasicAuthLambdaStack/BasicAuthPipeline/Assets/FileAsset1",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "BasicAuthLambdaStack/BasicAuthPipeline/Assets/FileAsset1/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::CodeBuild::Project",
+                          "aws:cdk:cloudformation:props": {
+                            "artifacts": {
+                              "type": "CODEPIPELINE"
+                            },
+                            "environment": {
+                              "type": "LINUX_CONTAINER",
+                              "image": "aws/codebuild/standard:5.0",
+                              "imagePullCredentialsType": "CODEBUILD",
+                              "privilegedMode": false,
+                              "computeType": "BUILD_GENERAL1_SMALL"
+                            },
+                            "serviceRole": {
+                              "Fn::GetAtt": [
+                                "BasicAuthPipelineAssetsFileRole8F1BA38A",
+                                "Arn"
+                              ]
+                            },
+                            "source": {
+                              "type": "CODEPIPELINE",
+                              "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-BasicAuthLambdaStack-Deploy/BasicAuthLambdaStackDeployBasicAuthLambdaStageB8479B75.assets.json\\\" --verbose publish \\\"6493af3631305304a72a4c86e425b5d82496d9d0b7801117c642507cd752de00:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}"
+                            },
+                            "cache": {
+                              "type": "NO_CACHE"
+                            },
+                            "description": "Pipeline step BasicAuthLambdaStack/Pipeline/Assets/FileAsset1",
+                            "encryptionKey": "alias/aws/s3"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_codebuild.CfnProject",
+                          "version": "2.15.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_codebuild.PipelineProject",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "FileAsset2": {
+                    "id": "FileAsset2",
+                    "path": "BasicAuthLambdaStack/BasicAuthPipeline/Assets/FileAsset2",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "BasicAuthLambdaStack/BasicAuthPipeline/Assets/FileAsset2/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::CodeBuild::Project",
+                          "aws:cdk:cloudformation:props": {
+                            "artifacts": {
+                              "type": "CODEPIPELINE"
+                            },
+                            "environment": {
+                              "type": "LINUX_CONTAINER",
+                              "image": "aws/codebuild/standard:5.0",
+                              "imagePullCredentialsType": "CODEBUILD",
+                              "privilegedMode": false,
+                              "computeType": "BUILD_GENERAL1_SMALL"
+                            },
+                            "serviceRole": {
+                              "Fn::GetAtt": [
+                                "BasicAuthPipelineAssetsFileRole8F1BA38A",
+                                "Arn"
+                              ]
+                            },
+                            "source": {
+                              "type": "CODEPIPELINE",
+                              "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-BasicAuthLambdaStack-Deploy/BasicAuthLambdaStackDeployBasicAuthLambdaStageB8479B75.assets.json\\\" --verbose publish \\\"dd1abb3d0dcc89c42a6f5ff7cc384054e73850ada459459f577b0ef79a1e9199:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}"
+                            },
+                            "cache": {
+                              "type": "NO_CACHE"
+                            },
+                            "description": "Pipeline step BasicAuthLambdaStack/Pipeline/Assets/FileAsset2",
+                            "encryptionKey": "alias/aws/s3"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_codebuild.CfnProject",
+                          "version": "2.15.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_codebuild.PipelineProject",
+                      "version": "2.15.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.1.43"
+                }
               }
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.pipelines.CodePipeline",
+              "version": "2.15.0"
+            }
+          },
+          "Deploy": {
+            "id": "Deploy",
+            "path": "BasicAuthLambdaStack/Deploy",
+            "children": {
+              "BasicAuthLambdaStage": {
+                "id": "BasicAuthLambdaStage",
+                "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage",
+                "children": {
+                  "basicAuthHalder": {
+                    "id": "basicAuthHalder",
+                    "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/basicAuthHalder",
+                    "children": {
+                      "ServiceRole": {
+                        "id": "ServiceRole",
+                        "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/basicAuthHalder/ServiceRole",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/basicAuthHalder/ServiceRole/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "Service": "lambda.amazonaws.com"
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "managedPolicyArns": [
+                                  {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                      ]
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                              "version": "2.15.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Role",
+                          "version": "2.15.0"
+                        }
+                      },
+                      "Code": {
+                        "id": "Code",
+                        "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/basicAuthHalder/Code",
+                        "children": {
+                          "Stage": {
+                            "id": "Stage",
+                            "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/basicAuthHalder/Code/Stage",
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.AssetStaging",
+                              "version": "2.15.0"
+                            }
+                          },
+                          "AssetBucket": {
+                            "id": "AssetBucket",
+                            "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/basicAuthHalder/Code/AssetBucket",
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                              "version": "2.15.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                          "version": "2.15.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/basicAuthHalder/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                          "aws:cdk:cloudformation:props": {
+                            "code": {
+                              "s3Bucket": {
+                                "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                              },
+                              "s3Key": "6493af3631305304a72a4c86e425b5d82496d9d0b7801117c642507cd752de00.zip"
+                            },
+                            "role": {
+                              "Fn::GetAtt": [
+                                "basicAuthHalderServiceRole6A48A972",
+                                "Arn"
+                              ]
+                            },
+                            "functionName": "basic-auth-handler",
+                            "handler": "index.handler",
+                            "runtime": "nodejs14.x"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                          "version": "2.15.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.Function",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "LoginAuthTracker": {
+                    "id": "LoginAuthTracker",
+                    "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginAuthTracker",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginAuthTracker/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                          "aws:cdk:cloudformation:props": {
+                            "keySchema": [
+                              {
+                                "attributeName": "path",
+                                "keyType": "HASH"
+                              }
+                            ],
+                            "attributeDefinitions": [
+                              {
+                                "attributeName": "path",
+                                "attributeType": "S"
+                              }
+                            ],
+                            "provisionedThroughput": {
+                              "readCapacityUnits": 5,
+                              "writeCapacityUnits": 5
+                            },
+                            "tableName": "LoginAuthTracker"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+                          "version": "2.15.0"
+                        }
+                      },
+                      "ScalingRole": {
+                        "id": "ScalingRole",
+                        "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginAuthTracker/ScalingRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.15.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_dynamodb.Table",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "LoginCounterHandler": {
+                    "id": "LoginCounterHandler",
+                    "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterHandler",
+                    "children": {
+                      "ServiceRole": {
+                        "id": "ServiceRole",
+                        "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterHandler/ServiceRole",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterHandler/ServiceRole/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "Service": "lambda.amazonaws.com"
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "managedPolicyArns": [
+                                  {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                      ]
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                              "version": "2.15.0"
+                            }
+                          },
+                          "DefaultPolicy": {
+                            "id": "DefaultPolicy",
+                            "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterHandler/ServiceRole/DefaultPolicy",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterHandler/ServiceRole/DefaultPolicy/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                  "aws:cdk:cloudformation:props": {
+                                    "policyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": [
+                                            "dynamodb:BatchGetItem",
+                                            "dynamodb:GetRecords",
+                                            "dynamodb:GetShardIterator",
+                                            "dynamodb:Query",
+                                            "dynamodb:GetItem",
+                                            "dynamodb:Scan",
+                                            "dynamodb:ConditionCheckItem",
+                                            "dynamodb:BatchWriteItem",
+                                            "dynamodb:PutItem",
+                                            "dynamodb:UpdateItem",
+                                            "dynamodb:DeleteItem",
+                                            "dynamodb:DescribeTable"
+                                          ],
+                                          "Effect": "Allow",
+                                          "Resource": [
+                                            {
+                                              "Fn::GetAtt": [
+                                                "LoginAuthTracker71FF6C1F",
+                                                "Arn"
+                                              ]
+                                            },
+                                            {
+                                              "Ref": "AWS::NoValue"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    },
+                                    "policyName": "LoginCounterHandlerServiceRoleDefaultPolicyAB36BAA9",
+                                    "roles": [
+                                      {
+                                        "Ref": "LoginCounterHandlerServiceRoleEA55B8B3"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                                  "version": "2.15.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.Policy",
+                              "version": "2.15.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Role",
+                          "version": "2.15.0"
+                        }
+                      },
+                      "Code": {
+                        "id": "Code",
+                        "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterHandler/Code",
+                        "children": {
+                          "Stage": {
+                            "id": "Stage",
+                            "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterHandler/Code/Stage",
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.AssetStaging",
+                              "version": "2.15.0"
+                            }
+                          },
+                          "AssetBucket": {
+                            "id": "AssetBucket",
+                            "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterHandler/Code/AssetBucket",
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                              "version": "2.15.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                          "version": "2.15.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterHandler/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                          "aws:cdk:cloudformation:props": {
+                            "code": {
+                              "s3Bucket": {
+                                "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                              },
+                              "s3Key": "dd1abb3d0dcc89c42a6f5ff7cc384054e73850ada459459f577b0ef79a1e9199.zip"
+                            },
+                            "role": {
+                              "Fn::GetAtt": [
+                                "LoginCounterHandlerServiceRoleEA55B8B3",
+                                "Arn"
+                              ]
+                            },
+                            "environment": {
+                              "variables": {
+                                "HITS_TABLE_NAME": {
+                                  "Ref": "LoginAuthTracker71FF6C1F"
+                                }
+                              }
+                            },
+                            "functionName": "LoginCounter",
+                            "handler": "index.handler",
+                            "runtime": "nodejs14.x"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                          "version": "2.15.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.Function",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "LoginCounterApi": {
+                    "id": "LoginCounterApi",
+                    "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterApi",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterApi/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Api",
+                          "aws:cdk:cloudformation:props": {
+                            "name": "Login-Counter",
+                            "protocolType": "HTTP"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnApi",
+                          "version": "2.15.0"
+                        }
+                      },
+                      "DefaultStage": {
+                        "id": "DefaultStage",
+                        "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterApi/DefaultStage",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterApi/DefaultStage/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Stage",
+                              "aws:cdk:cloudformation:props": {
+                                "apiId": {
+                                  "Ref": "LoginCounterApi11AF632B"
+                                },
+                                "stageName": "$default",
+                                "autoDeploy": true
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnStage",
+                              "version": "2.15.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-apigatewayv2-alpha.HttpStage",
+                          "version": "2.30.0-alpha.0"
+                        }
+                      },
+                      "GET--login": {
+                        "id": "GET--login",
+                        "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterApi/GET--login",
+                        "children": {
+                          "loginCounterApiIntergration": {
+                            "id": "loginCounterApiIntergration",
+                            "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterApi/GET--login/loginCounterApiIntergration",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterApi/GET--login/loginCounterApiIntergration/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Integration",
+                                  "aws:cdk:cloudformation:props": {
+                                    "apiId": {
+                                      "Ref": "LoginCounterApi11AF632B"
+                                    },
+                                    "integrationType": "AWS_PROXY",
+                                    "integrationUri": {
+                                      "Fn::GetAtt": [
+                                        "LoginCounterHandlerBEC0D618",
+                                        "Arn"
+                                      ]
+                                    },
+                                    "payloadFormatVersion": "2.0"
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnIntegration",
+                                  "version": "2.15.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-apigatewayv2-alpha.HttpIntegration",
+                              "version": "2.30.0-alpha.0"
+                            }
+                          },
+                          "loginCounterApiIntergration-Permission": {
+                            "id": "loginCounterApiIntergration-Permission",
+                            "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterApi/GET--login/loginCounterApiIntergration-Permission",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "LoginCounterHandlerBEC0D618",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":execute-api:",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "LoginCounterApi11AF632B"
+                                      },
+                                      "/*/*/login"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.15.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterApi/GET--login/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Route",
+                              "aws:cdk:cloudformation:props": {
+                                "apiId": {
+                                  "Ref": "LoginCounterApi11AF632B"
+                                },
+                                "routeKey": "GET /login",
+                                "authorizationType": "CUSTOM",
+                                "authorizerId": {
+                                  "Ref": "LoginCounterApiBasicAuthorizer8EF93182"
+                                },
+                                "target": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "integrations/",
+                                      {
+                                        "Ref": "LoginCounterApiGETloginloginCounterApiIntergration6EDBA160"
+                                      }
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnRoute",
+                              "version": "2.15.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-apigatewayv2-alpha.HttpRoute",
+                          "version": "2.30.0-alpha.0"
+                        }
+                      },
+                      "BasicAuthorizer": {
+                        "id": "BasicAuthorizer",
+                        "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterApi/BasicAuthorizer",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterApi/BasicAuthorizer/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Authorizer",
+                              "aws:cdk:cloudformation:props": {
+                                "apiId": {
+                                  "Ref": "LoginCounterApi11AF632B"
+                                },
+                                "authorizerType": "REQUEST",
+                                "name": "Basic-authorizer",
+                                "authorizerPayloadFormatVersion": "2.0",
+                                "authorizerResultTtlInSeconds": 300,
+                                "authorizerUri": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":apigateway:",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ":lambda:path/2015-03-31/functions/",
+                                      {
+                                        "Fn::GetAtt": [
+                                          "basicAuthHalderB215C301",
+                                          "Arn"
+                                        ]
+                                      },
+                                      "/invocations"
+                                    ]
+                                  ]
+                                },
+                                "enableSimpleResponses": true,
+                                "identitySource": [
+                                  "$request.header.apiKey"
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnAuthorizer",
+                              "version": "2.15.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-apigatewayv2-alpha.HttpAuthorizer",
+                          "version": "2.30.0-alpha.0"
+                        }
+                      },
+                      "BasicAuthLambdaStackDeployBasicAuthLambdaStageLoginCounterApiBasicAuthorizerF06594F4-Permission": {
+                        "id": "BasicAuthLambdaStackDeployBasicAuthLambdaStageLoginCounterApiBasicAuthorizerF06594F4-Permission",
+                        "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/LoginCounterApi/BasicAuthLambdaStackDeployBasicAuthLambdaStageLoginCounterApiBasicAuthorizerF06594F4-Permission",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                          "aws:cdk:cloudformation:props": {
+                            "action": "lambda:InvokeFunction",
+                            "functionName": {
+                              "Fn::GetAtt": [
+                                "basicAuthHalderB215C301",
+                                "Arn"
+                              ]
+                            },
+                            "principal": "apigateway.amazonaws.com",
+                            "sourceArn": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":execute-api:",
+                                  {
+                                    "Ref": "AWS::Region"
+                                  },
+                                  ":",
+                                  {
+                                    "Ref": "AWS::AccountId"
+                                  },
+                                  ":",
+                                  {
+                                    "Ref": "LoginCounterApi11AF632B"
+                                  },
+                                  "/authorizers/",
+                                  {
+                                    "Ref": "LoginCounterApiBasicAuthorizer8EF93182"
+                                  }
+                                ]
+                              ]
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                          "version": "2.15.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-apigatewayv2-alpha.HttpApi",
+                      "version": "2.30.0-alpha.0"
+                    }
+                  },
+                  "CDKMetadata": {
+                    "id": "CDKMetadata",
+                    "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/CDKMetadata",
+                    "children": {
+                      "Default": {
+                        "id": "Default",
+                        "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/CDKMetadata/Default",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.CfnResource",
+                          "version": "2.15.0"
+                        }
+                      },
+                      "Condition": {
+                        "id": "Condition",
+                        "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/CDKMetadata/Condition",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.CfnCondition",
+                          "version": "2.15.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.1.43"
+                    }
+                  },
+                  "BootstrapVersion": {
+                    "id": "BootstrapVersion",
+                    "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/BootstrapVersion",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnParameter",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "CheckBootstrapVersion": {
+                    "id": "CheckBootstrapVersion",
+                    "path": "BasicAuthLambdaStack/Deploy/BasicAuthLambdaStage/CheckBootstrapVersion",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnRule",
+                      "version": "2.15.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Stack",
+                  "version": "2.15.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Stage",
               "version": "2.15.0"
             }
           },

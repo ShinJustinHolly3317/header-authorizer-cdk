@@ -1,3 +1,4 @@
 .PHONY: build
 build: 
-	@./esbuild.sh
+	cdk destroy
+	cdk deploy --hotswap

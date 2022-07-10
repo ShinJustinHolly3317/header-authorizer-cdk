@@ -143,6 +143,61 @@
                   ]
                 }
               ]
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*"
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":role/cdk-hnb659fds-deploy-role-",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      "-",
+                      {
+                        "Ref": "AWS::Region"
+                      }
+                    ]
+                  ]
+                }
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "BasicAuthPipelineArtifactsBucket04D85917",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "BasicAuthPipelineArtifactsBucket04D85917",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
             }
           ],
           "Version": "2012-10-17"
@@ -243,6 +298,53 @@
                   "Arn"
                 ]
               }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "BasicAuthPipelineAssetsFileAsset1CodePipelineActionRole2D9FF312",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "BasicAuthPipelineAssetsFileAsset2CodePipelineActionRole5EEBDC3B",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":iam::",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":role/cdk-hnb659fds-deploy-role-",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    "-",
+                    {
+                      "Ref": "AWS::Region"
+                    }
+                  ]
+                ]
+              }
             }
           ],
           "Version": "2012-10-17"
@@ -322,7 +424,7 @@
                   "ProjectName": {
                     "Ref": "BasicAuthPipelineBuildSynthStepCdkBuildProject58E50159"
                   },
-                  "EnvironmentVariables": "[{\"name\":\"_PROJECT_CONFIG_HASH\",\"type\":\"PLAINTEXT\",\"value\":\"a22837f5935d0c111d0d781ed0aaaf24f5793731bdb2eb8c6b4ffa9afe34558c\"}]"
+                  "EnvironmentVariables": "[{\"name\":\"_PROJECT_CONFIG_HASH\",\"type\":\"PLAINTEXT\",\"value\":\"4e6b4b99747f3ea63a19448c290d236c048ee1c4f12cb76897e20cd4e4e8c4dd\"}]"
                 },
                 "InputArtifacts": [
                   {
@@ -377,6 +479,174 @@
               }
             ],
             "Name": "UpdatePipeline"
+          },
+          {
+            "Actions": [
+              {
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "BasicAuthPipelineAssetsFileAsset13179B215"
+                  }
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "SynthStep_Output"
+                  }
+                ],
+                "Name": "FileAsset1",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "BasicAuthPipelineAssetsFileAsset1CodePipelineActionRole2D9FF312",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "BasicAuthPipelineAssetsFileAsset21396B358"
+                  }
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "SynthStep_Output"
+                  }
+                ],
+                "Name": "FileAsset2",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "BasicAuthPipelineAssetsFileAsset2CodePipelineActionRole5EEBDC3B",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              }
+            ],
+            "Name": "Assets"
+          },
+          {
+            "Actions": [
+              {
+                "ActionTypeId": {
+                  "Category": "Deploy",
+                  "Owner": "AWS",
+                  "Provider": "CloudFormation",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "StackName": "Deploy-BasicAuthLambdaStage",
+                  "Capabilities": "CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND",
+                  "RoleArn": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":iam::",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":role/cdk-hnb659fds-cfn-exec-role-",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        "-",
+                        {
+                          "Ref": "AWS::Region"
+                        }
+                      ]
+                    ]
+                  },
+                  "ActionMode": "CHANGE_SET_REPLACE",
+                  "ChangeSetName": "PipelineChange",
+                  "TemplatePath": "SynthStep_Output::assembly-BasicAuthLambdaStack-Deploy/BasicAuthLambdaStackDeployBasicAuthLambdaStageB8479B75.template.json"
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "SynthStep_Output"
+                  }
+                ],
+                "Name": "Prepare",
+                "RoleArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":role/cdk-hnb659fds-deploy-role-",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      "-",
+                      {
+                        "Ref": "AWS::Region"
+                      }
+                    ]
+                  ]
+                },
+                "RunOrder": 1
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Deploy",
+                  "Owner": "AWS",
+                  "Provider": "CloudFormation",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "StackName": "Deploy-BasicAuthLambdaStage",
+                  "ActionMode": "CHANGE_SET_EXECUTE",
+                  "ChangeSetName": "PipelineChange"
+                },
+                "Name": "Deploy",
+                "RoleArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":role/cdk-hnb659fds-deploy-role-",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      "-",
+                      {
+                        "Ref": "AWS::Region"
+                      }
+                    ]
+                  ]
+                },
+                "RunOrder": 2
+              }
+            ],
+            "Name": "Deploy"
           }
         ],
         "ArtifactStore": {
@@ -756,7 +1026,7 @@
           ]
         },
         "Source": {
-          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g yarn\",\n        \"yarn global add aws-cdk\",\n        \"yarn global add esbuild\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"yarn\",\n        \"ls\",\n        \"pwd\",\n        \"sudo chmod u+x *.sh\",\n        \"./esbuild.sh\",\n        \"npx cdk synth\"\n      ]\n    }\n  },\n  \"artifacts\": {\n    \"base-directory\": \"cdk.out\",\n    \"files\": \"**/*\"\n  }\n}",
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g yarn\",\n        \"yarn global add aws-cdk\",\n        \"yarn global add esbuild\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"yarn\",\n        \"./esbuild.sh\",\n        \"npx cdk synth\"\n      ]\n    }\n  },\n  \"artifacts\": {\n    \"base-directory\": \"cdk.out\",\n    \"files\": \"**/*\"\n  }\n}",
           "Type": "CODEPIPELINE"
         },
         "Cache": {
@@ -903,6 +1173,142 @@
       },
       "Metadata": {
         "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
+    "BasicAuthPipelineAssetsFileAsset1CodePipelineActionRole2D9FF312": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Assets/FileAsset1/CodePipelineActionRole/Resource"
+      }
+    },
+    "BasicAuthPipelineAssetsFileAsset1CodePipelineActionRoleDefaultPolicy975CB8C3": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "BasicAuthPipelineAssetsFileAsset13179B215",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "BasicAuthPipelineAssetsFileAsset1CodePipelineActionRoleDefaultPolicy975CB8C3",
+        "Roles": [
+          {
+            "Ref": "BasicAuthPipelineAssetsFileAsset1CodePipelineActionRole2D9FF312"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Assets/FileAsset1/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
+    "BasicAuthPipelineAssetsFileAsset2CodePipelineActionRole5EEBDC3B": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Assets/FileAsset2/CodePipelineActionRole/Resource"
+      }
+    },
+    "BasicAuthPipelineAssetsFileAsset2CodePipelineActionRoleDefaultPolicy9692284E": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "BasicAuthPipelineAssetsFileAsset21396B358",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "BasicAuthPipelineAssetsFileAsset2CodePipelineActionRoleDefaultPolicy9692284E",
+        "Roles": [
+          {
+            "Ref": "BasicAuthPipelineAssetsFileAsset2CodePipelineActionRole5EEBDC3B"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Assets/FileAsset2/CodePipelineActionRole/DefaultPolicy/Resource"
       }
     },
     "BasicAuthPipelineUpdatePipelineSelfMutationRoleB200B2D0": {
@@ -1134,10 +1540,243 @@
         "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/UpdatePipeline/SelfMutation/Resource"
       }
     },
+    "BasicAuthPipelineAssetsFileRole8F1BA38A": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codebuild.amazonaws.com"
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Assets/FileRole/Resource"
+      }
+    },
+    "BasicAuthPipelineAssetsFileRoleDefaultPolicy4E3D1F6F": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":logs:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":log-group:/aws/codebuild/*"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "codebuild:CreateReportGroup",
+                "codebuild:CreateReport",
+                "codebuild:UpdateReport",
+                "codebuild:BatchPutTestCases",
+                "codebuild:BatchPutCodeCoverages"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":codebuild:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":report-group/*"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Sub": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+                }
+              ]
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "BasicAuthPipelineArtifactsBucket04D85917",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "BasicAuthPipelineArtifactsBucket04D85917",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "BasicAuthPipelineAssetsFileRoleDefaultPolicy4E3D1F6F",
+        "Roles": [
+          {
+            "Ref": "BasicAuthPipelineAssetsFileRole8F1BA38A"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Assets/FileRole/DefaultPolicy/Resource"
+      }
+    },
+    "BasicAuthPipelineAssetsFileAsset13179B215": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:5.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "BasicAuthPipelineAssetsFileRole8F1BA38A",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-BasicAuthLambdaStack-Deploy/BasicAuthLambdaStackDeployBasicAuthLambdaStageB8479B75.assets.json\\\" --verbose publish \\\"6493af3631305304a72a4c86e425b5d82496d9d0b7801117c642507cd752de00:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
+          "Type": "CODEPIPELINE"
+        },
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "Description": "Pipeline step BasicAuthLambdaStack/Pipeline/Assets/FileAsset1",
+        "EncryptionKey": "alias/aws/s3"
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Assets/FileAsset1/Resource"
+      }
+    },
+    "BasicAuthPipelineAssetsFileAsset21396B358": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:5.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "BasicAuthPipelineAssetsFileRole8F1BA38A",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-BasicAuthLambdaStack-Deploy/BasicAuthLambdaStackDeployBasicAuthLambdaStageB8479B75.assets.json\\\" --verbose publish \\\"dd1abb3d0dcc89c42a6f5ff7cc384054e73850ada459459f577b0ef79a1e9199:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
+          "Type": "CODEPIPELINE"
+        },
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "Description": "Pipeline step BasicAuthLambdaStack/Pipeline/Assets/FileAsset2",
+        "EncryptionKey": "alias/aws/s3"
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Assets/FileAsset2/Resource"
+      }
+    },
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/01QSQ7CMAx8C/fUUJYDV/qBqjwAldRIbtO4ahIQivJ3ki4qpxmPx5qRj5Bf4LCrPyaTTZcpeoK/21p2IkoPL7lByX1PFnyFAxuyPH5F8dLbFAS+UVsTHU7htIsYRLodaEBFGsGXC0v7lQdhTuBvTnZok76wGUpWJL+bPM9BUN3HJF6SEm7O1ZOin45Us+WWI7cop5iFhiDWegaKePFfsULDbpQTL1g3ZIl1EDraoDX7d36G/Bof1xqibHTaUo9QzfgDMC+ZxlQBAAA="
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/02Q3Q6CMAyFn8X7UcWfC2/lBQg+gMFRk8JYCds0Ztm7uwmIV+e0Pc3XdA/5CXab+mUy2XSZojv4q61lJ2Lr5iU3KLnvyYKvcGBDlse3KB56rYLAJ2prYsIp/M6iBpF2BxpQkUbw5ezSfPFBmAP4i5Md2tSf3SQlK5LvtT3VQVDdRxLPpKRrcskk9N2RalZuOXKL8ouZbQhiOc9AETd+J1Zo2I1yIvz5gnVDllgHoWMeWrN95kfIz/GDrSHKRqct9QjVpB9Ll9veXQEAAA=="
       },
       "Metadata": {
         "aws:cdk:path": "BasicAuthLambdaStack/CDKMetadata/Default"
