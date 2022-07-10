@@ -11,16 +11,18 @@ export class WorkshopPipelineStack extends cdk.Stack {
             repositoryName: "BasicAuthHandler"
         });
 
-        const pipeline = new CodePipeline(this, 'Pipeline', {
-          pipelineName: 'WorkshopPipeline',
+        const pipeline = new CodePipeline(this, 'BasicAuthPipeline', {
+          pipelineName: 'BasicAuthPipeline',
+          
           synth: new CodeBuildStep('SynthStep', {
                   input: CodePipelineSource.codeCommit(repo, 'master'),
                   installCommands: [
-                      'npm install -g aws-cdk'
+                      'npm install -g aws-cdk',
+                      'npm install -g yarn'
                   ],
                   commands: [
-                      'npm ci',
-                      'npm run build',
+                      'yarn',
+                      'yarn run build',
                       'npx cdk synth'
                   ]
               }
