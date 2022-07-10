@@ -23,7 +23,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/b12515184f4b4a12df5a640432b7d24f28f1647005141939dc889cb27050d191.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/21efcf2092a68def5b1091a0b976b2ccb7ee9cdc54b35dc3a1f27d637941ff7a.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -45,124 +45,124 @@
             "data": "BasicAuthHandlerBC7E9544"
           }
         ],
-        "/BasicAuthLambdaStack/BasicAuthHandler/BasicAuthLambdaStackPipeline75517FC9EventRule/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthHandler/BasicAuthLambdaStackBasicAuthPipelineCA24BDD9EventRule/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "BasicAuthHandlerBasicAuthLambdaStackPipeline75517FC9EventRuleC70471BB"
+            "data": "BasicAuthHandlerBasicAuthLambdaStackBasicAuthPipelineCA24BDD9EventRule84B7B987"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/Pipeline/ArtifactsBucket/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/ArtifactsBucket/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineArtifactsBucketAEA9A052"
+            "data": "BasicAuthPipelineArtifactsBucket04D85917"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/Pipeline/ArtifactsBucket/Policy/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/ArtifactsBucket/Policy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineArtifactsBucketPolicyF53CCC52"
+            "data": "BasicAuthPipelineArtifactsBucketPolicy32162DAA"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/Pipeline/Role/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Role/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineRoleB27FAA37"
+            "data": "BasicAuthPipelineRole6E95EC4B"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/Pipeline/Role/DefaultPolicy/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Role/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineRoleDefaultPolicy7BDC1ABB"
+            "data": "BasicAuthPipelineRoleDefaultPolicyC50A177E"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/Pipeline/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "Pipeline9850B417"
+            "data": "BasicAuthPipeline689AF795"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/Pipeline/Source/CodeCommit/CodePipelineActionRole/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Source/CodeCommit/CodePipelineActionRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineSourceCodeCommitCodePipelineActionRole48F8DEFA"
+            "data": "BasicAuthPipelineSourceCodeCommitCodePipelineActionRoleB2CFEDA5"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/Pipeline/Source/CodeCommit/CodePipelineActionRole/DefaultPolicy/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Source/CodeCommit/CodePipelineActionRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineSourceCodeCommitCodePipelineActionRoleDefaultPolicy3CEB31C0"
+            "data": "BasicAuthPipelineSourceCodeCommitCodePipelineActionRoleDefaultPolicyCB59494D"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/Pipeline/EventsRole/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/EventsRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineEventsRole96280D9B"
+            "data": "BasicAuthPipelineEventsRole0D1B4C1E"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/Pipeline/EventsRole/DefaultPolicy/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/EventsRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineEventsRoleDefaultPolicy62809D8F"
+            "data": "BasicAuthPipelineEventsRoleDefaultPolicy3C716611"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/Pipeline/Build/SynthStep/CdkBuildProject/Role/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Build/SynthStep/CdkBuildProject/Role/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineBuildSynthStepCdkBuildProjectRole2407DBD0"
+            "data": "BasicAuthPipelineBuildSynthStepCdkBuildProjectRoleBEE90D4E"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/Pipeline/Build/SynthStep/CdkBuildProject/Role/DefaultPolicy/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Build/SynthStep/CdkBuildProject/Role/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineBuildSynthStepCdkBuildProjectRoleDefaultPolicy3CD6B151"
+            "data": "BasicAuthPipelineBuildSynthStepCdkBuildProjectRoleDefaultPolicy815EA37B"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/Pipeline/Build/SynthStep/CdkBuildProject/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Build/SynthStep/CdkBuildProject/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineBuildSynthStepCdkBuildProject7FBB5116"
+            "data": "BasicAuthPipelineBuildSynthStepCdkBuildProject58E50159"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/Pipeline/Build/SynthStep/CodePipelineActionRole/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Build/SynthStep/CodePipelineActionRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineBuildSynthStepCodePipelineActionRoleC55B7A0B"
+            "data": "BasicAuthPipelineBuildSynthStepCodePipelineActionRole19AE6F04"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/Pipeline/Build/SynthStep/CodePipelineActionRole/DefaultPolicy/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Build/SynthStep/CodePipelineActionRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineBuildSynthStepCodePipelineActionRoleDefaultPolicy6DCD1F45"
+            "data": "BasicAuthPipelineBuildSynthStepCodePipelineActionRoleDefaultPolicy2AEE5BBD"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleD6D4E5CF"
+            "data": "BasicAuthPipelineUpdatePipelineSelfMutateCodePipelineActionRole945CBFF4"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/DefaultPolicy/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleDefaultPolicyE626265B"
+            "data": "BasicAuthPipelineUpdatePipelineSelfMutateCodePipelineActionRoleDefaultPolicy949EDFF1"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/UpdatePipeline/SelfMutation/Role/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/UpdatePipeline/SelfMutation/Role/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineUpdatePipelineSelfMutationRole57E559E8"
+            "data": "BasicAuthPipelineUpdatePipelineSelfMutationRoleB200B2D0"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/UpdatePipeline/SelfMutation/Role/DefaultPolicy/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/UpdatePipeline/SelfMutation/Role/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineUpdatePipelineSelfMutationRoleDefaultPolicyA225DA4E"
+            "data": "BasicAuthPipelineUpdatePipelineSelfMutationRoleDefaultPolicy31A21D21"
           }
         ],
-        "/BasicAuthLambdaStack/Pipeline/UpdatePipeline/SelfMutation/Resource": [
+        "/BasicAuthLambdaStack/BasicAuthPipeline/UpdatePipeline/SelfMutation/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineUpdatePipelineSelfMutationDAA41400"
+            "data": "BasicAuthPipelineUpdatePipelineSelfMutation9F3AFB7F"
           }
         ],
         "/BasicAuthLambdaStack/CDKMetadata/Default": [

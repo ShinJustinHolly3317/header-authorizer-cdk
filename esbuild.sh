@@ -1,4 +1,3 @@
-#!/bin/sh
 # clear up old build files
 rm -rf ./build/*
 # export .ts files to .js

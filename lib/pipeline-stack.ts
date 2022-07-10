@@ -18,11 +18,12 @@ export class WorkshopPipelineStack extends cdk.Stack {
                   input: CodePipelineSource.codeCommit(repo, 'master'),
                   installCommands: [
                     'npm install -g yarn',
-                    'yarn add -g aws-cdk'
+                    'yarn global add aws-cdk',
+                    'yarn global add esbuild'
                   ],
                   commands: [
                       'yarn',
-                      'sh ./esbuild.sh',
+                      './esbuild.sh',
                       'npx cdk synth'
                   ]
               }

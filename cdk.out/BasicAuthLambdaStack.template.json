@@ -9,7 +9,7 @@
         "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthHandler/Resource"
       }
     },
-    "BasicAuthHandlerBasicAuthLambdaStackPipeline75517FC9EventRuleC70471BB": {
+    "BasicAuthHandlerBasicAuthLambdaStackBasicAuthPipelineCA24BDD9EventRule84B7B987": {
       "Type": "AWS::Events::Rule",
       "Properties": {
         "EventPattern": {
@@ -58,7 +58,7 @@
                   },
                   ":",
                   {
-                    "Ref": "Pipeline9850B417"
+                    "Ref": "BasicAuthPipeline689AF795"
                   }
                 ]
               ]
@@ -66,7 +66,7 @@
             "Id": "Target0",
             "RoleArn": {
               "Fn::GetAtt": [
-                "PipelineEventsRole96280D9B",
+                "BasicAuthPipelineEventsRole0D1B4C1E",
                 "Arn"
               ]
             }
@@ -74,10 +74,10 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthHandler/BasicAuthLambdaStackPipeline75517FC9EventRule/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthHandler/BasicAuthLambdaStackBasicAuthPipelineCA24BDD9EventRule/Resource"
       }
     },
-    "PipelineArtifactsBucketAEA9A052": {
+    "BasicAuthPipelineArtifactsBucket04D85917": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
         "BucketEncryption": {
@@ -99,14 +99,14 @@
       "UpdateReplacePolicy": "Retain",
       "DeletionPolicy": "Retain",
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/Pipeline/ArtifactsBucket/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/ArtifactsBucket/Resource"
       }
     },
-    "PipelineArtifactsBucketPolicyF53CCC52": {
+    "BasicAuthPipelineArtifactsBucketPolicy32162DAA": {
       "Type": "AWS::S3::BucketPolicy",
       "Properties": {
         "Bucket": {
-          "Ref": "PipelineArtifactsBucketAEA9A052"
+          "Ref": "BasicAuthPipelineArtifactsBucket04D85917"
         },
         "PolicyDocument": {
           "Statement": [
@@ -124,7 +124,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "PipelineArtifactsBucketAEA9A052",
+                    "BasicAuthPipelineArtifactsBucket04D85917",
                     "Arn"
                   ]
                 },
@@ -134,7 +134,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "PipelineArtifactsBucketAEA9A052",
+                          "BasicAuthPipelineArtifactsBucket04D85917",
                           "Arn"
                         ]
                       },
@@ -149,10 +149,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/Pipeline/ArtifactsBucket/Policy/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/ArtifactsBucket/Policy/Resource"
       }
     },
-    "PipelineRoleB27FAA37": {
+    "BasicAuthPipelineRole6E95EC4B": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -169,10 +169,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/Pipeline/Role/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Role/Resource"
       }
     },
-    "PipelineRoleDefaultPolicy7BDC1ABB": {
+    "BasicAuthPipelineRoleDefaultPolicyC50A177E": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -194,7 +194,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "PipelineArtifactsBucketAEA9A052",
+                    "BasicAuthPipelineArtifactsBucket04D85917",
                     "Arn"
                   ]
                 },
@@ -204,7 +204,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "PipelineArtifactsBucketAEA9A052",
+                          "BasicAuthPipelineArtifactsBucket04D85917",
                           "Arn"
                         ]
                       },
@@ -219,7 +219,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "PipelineSourceCodeCommitCodePipelineActionRole48F8DEFA",
+                  "BasicAuthPipelineSourceCodeCommitCodePipelineActionRoleB2CFEDA5",
                   "Arn"
                 ]
               }
@@ -229,7 +229,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "PipelineBuildSynthStepCodePipelineActionRoleC55B7A0B",
+                  "BasicAuthPipelineBuildSynthStepCodePipelineActionRole19AE6F04",
                   "Arn"
                 ]
               }
@@ -239,7 +239,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleD6D4E5CF",
+                  "BasicAuthPipelineUpdatePipelineSelfMutateCodePipelineActionRole945CBFF4",
                   "Arn"
                 ]
               }
@@ -247,23 +247,23 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "PipelineRoleDefaultPolicy7BDC1ABB",
+        "PolicyName": "BasicAuthPipelineRoleDefaultPolicyC50A177E",
         "Roles": [
           {
-            "Ref": "PipelineRoleB27FAA37"
+            "Ref": "BasicAuthPipelineRole6E95EC4B"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/Pipeline/Role/DefaultPolicy/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Role/DefaultPolicy/Resource"
       }
     },
-    "Pipeline9850B417": {
+    "BasicAuthPipeline689AF795": {
       "Type": "AWS::CodePipeline::Pipeline",
       "Properties": {
         "RoleArn": {
           "Fn::GetAtt": [
-            "PipelineRoleB27FAA37",
+            "BasicAuthPipelineRole6E95EC4B",
             "Arn"
           ]
         },
@@ -300,7 +300,7 @@
                 ],
                 "RoleArn": {
                   "Fn::GetAtt": [
-                    "PipelineSourceCodeCommitCodePipelineActionRole48F8DEFA",
+                    "BasicAuthPipelineSourceCodeCommitCodePipelineActionRoleB2CFEDA5",
                     "Arn"
                   ]
                 },
@@ -320,9 +320,9 @@
                 },
                 "Configuration": {
                   "ProjectName": {
-                    "Ref": "PipelineBuildSynthStepCdkBuildProject7FBB5116"
+                    "Ref": "BasicAuthPipelineBuildSynthStepCdkBuildProject58E50159"
                   },
-                  "EnvironmentVariables": "[{\"name\":\"_PROJECT_CONFIG_HASH\",\"type\":\"PLAINTEXT\",\"value\":\"9f22b6735ac6f6344ae993d600be27e1ca327184f1fa946c9e4ab4debff789f0\"}]"
+                  "EnvironmentVariables": "[{\"name\":\"_PROJECT_CONFIG_HASH\",\"type\":\"PLAINTEXT\",\"value\":\"a22837f5935d0c111d0d781ed0aaaf24f5793731bdb2eb8c6b4ffa9afe34558c\"}]"
                 },
                 "InputArtifacts": [
                   {
@@ -337,7 +337,7 @@
                 ],
                 "RoleArn": {
                   "Fn::GetAtt": [
-                    "PipelineBuildSynthStepCodePipelineActionRoleC55B7A0B",
+                    "BasicAuthPipelineBuildSynthStepCodePipelineActionRole19AE6F04",
                     "Arn"
                   ]
                 },
@@ -357,7 +357,7 @@
                 },
                 "Configuration": {
                   "ProjectName": {
-                    "Ref": "PipelineUpdatePipelineSelfMutationDAA41400"
+                    "Ref": "BasicAuthPipelineUpdatePipelineSelfMutation9F3AFB7F"
                   },
                   "EnvironmentVariables": "[{\"name\":\"_PROJECT_CONFIG_HASH\",\"type\":\"PLAINTEXT\",\"value\":\"94962f07c70cf468da69e2badbc44b2837f40dacbea954423377fcd3e2de6a43\"}]"
                 },
@@ -369,7 +369,7 @@
                 "Name": "SelfMutate",
                 "RoleArn": {
                   "Fn::GetAtt": [
-                    "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleD6D4E5CF",
+                    "BasicAuthPipelineUpdatePipelineSelfMutateCodePipelineActionRole945CBFF4",
                     "Arn"
                   ]
                 },
@@ -381,22 +381,22 @@
         ],
         "ArtifactStore": {
           "Location": {
-            "Ref": "PipelineArtifactsBucketAEA9A052"
+            "Ref": "BasicAuthPipelineArtifactsBucket04D85917"
           },
           "Type": "S3"
         },
-        "Name": "WorkshopPipeline",
+        "Name": "BasicAuthPipeline",
         "RestartExecutionOnUpdate": true
       },
       "DependsOn": [
-        "PipelineRoleDefaultPolicy7BDC1ABB",
-        "PipelineRoleB27FAA37"
+        "BasicAuthPipelineRoleDefaultPolicyC50A177E",
+        "BasicAuthPipelineRole6E95EC4B"
       ],
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/Pipeline/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Resource"
       }
     },
-    "PipelineSourceCodeCommitCodePipelineActionRole48F8DEFA": {
+    "BasicAuthPipelineSourceCodeCommitCodePipelineActionRoleB2CFEDA5": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -428,10 +428,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/Pipeline/Source/CodeCommit/CodePipelineActionRole/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Source/CodeCommit/CodePipelineActionRole/Resource"
       }
     },
-    "PipelineSourceCodeCommitCodePipelineActionRoleDefaultPolicy3CEB31C0": {
+    "BasicAuthPipelineSourceCodeCommitCodePipelineActionRoleDefaultPolicyCB59494D": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -453,7 +453,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "PipelineArtifactsBucketAEA9A052",
+                    "BasicAuthPipelineArtifactsBucket04D85917",
                     "Arn"
                   ]
                 },
@@ -463,7 +463,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "PipelineArtifactsBucketAEA9A052",
+                          "BasicAuthPipelineArtifactsBucket04D85917",
                           "Arn"
                         ]
                       },
@@ -492,18 +492,18 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "PipelineSourceCodeCommitCodePipelineActionRoleDefaultPolicy3CEB31C0",
+        "PolicyName": "BasicAuthPipelineSourceCodeCommitCodePipelineActionRoleDefaultPolicyCB59494D",
         "Roles": [
           {
-            "Ref": "PipelineSourceCodeCommitCodePipelineActionRole48F8DEFA"
+            "Ref": "BasicAuthPipelineSourceCodeCommitCodePipelineActionRoleB2CFEDA5"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/Pipeline/Source/CodeCommit/CodePipelineActionRole/DefaultPolicy/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Source/CodeCommit/CodePipelineActionRole/DefaultPolicy/Resource"
       }
     },
-    "PipelineEventsRole96280D9B": {
+    "BasicAuthPipelineEventsRole0D1B4C1E": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -520,10 +520,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/Pipeline/EventsRole/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/EventsRole/Resource"
       }
     },
-    "PipelineEventsRoleDefaultPolicy62809D8F": {
+    "BasicAuthPipelineEventsRoleDefaultPolicy3C716611": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -549,7 +549,7 @@
                     },
                     ":",
                     {
-                      "Ref": "Pipeline9850B417"
+                      "Ref": "BasicAuthPipeline689AF795"
                     }
                   ]
                 ]
@@ -558,18 +558,18 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "PipelineEventsRoleDefaultPolicy62809D8F",
+        "PolicyName": "BasicAuthPipelineEventsRoleDefaultPolicy3C716611",
         "Roles": [
           {
-            "Ref": "PipelineEventsRole96280D9B"
+            "Ref": "BasicAuthPipelineEventsRole0D1B4C1E"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/Pipeline/EventsRole/DefaultPolicy/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/EventsRole/DefaultPolicy/Resource"
       }
     },
-    "PipelineBuildSynthStepCdkBuildProjectRole2407DBD0": {
+    "BasicAuthPipelineBuildSynthStepCdkBuildProjectRoleBEE90D4E": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -586,10 +586,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/Pipeline/Build/SynthStep/CdkBuildProject/Role/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Build/SynthStep/CdkBuildProject/Role/Resource"
       }
     },
-    "PipelineBuildSynthStepCdkBuildProjectRoleDefaultPolicy3CD6B151": {
+    "BasicAuthPipelineBuildSynthStepCdkBuildProjectRoleDefaultPolicy815EA37B": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -620,7 +620,7 @@
                       },
                       ":log-group:/aws/codebuild/",
                       {
-                        "Ref": "PipelineBuildSynthStepCdkBuildProject7FBB5116"
+                        "Ref": "BasicAuthPipelineBuildSynthStepCdkBuildProject58E50159"
                       }
                     ]
                   ]
@@ -643,7 +643,7 @@
                       },
                       ":log-group:/aws/codebuild/",
                       {
-                        "Ref": "PipelineBuildSynthStepCdkBuildProject7FBB5116"
+                        "Ref": "BasicAuthPipelineBuildSynthStepCdkBuildProject58E50159"
                       },
                       ":*"
                     ]
@@ -678,7 +678,7 @@
                     },
                     ":report-group/",
                     {
-                      "Ref": "PipelineBuildSynthStepCdkBuildProject7FBB5116"
+                      "Ref": "BasicAuthPipelineBuildSynthStepCdkBuildProject58E50159"
                     },
                     "-*"
                   ]
@@ -702,7 +702,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "PipelineArtifactsBucketAEA9A052",
+                    "BasicAuthPipelineArtifactsBucket04D85917",
                     "Arn"
                   ]
                 },
@@ -712,7 +712,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "PipelineArtifactsBucketAEA9A052",
+                          "BasicAuthPipelineArtifactsBucket04D85917",
                           "Arn"
                         ]
                       },
@@ -725,18 +725,18 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "PipelineBuildSynthStepCdkBuildProjectRoleDefaultPolicy3CD6B151",
+        "PolicyName": "BasicAuthPipelineBuildSynthStepCdkBuildProjectRoleDefaultPolicy815EA37B",
         "Roles": [
           {
-            "Ref": "PipelineBuildSynthStepCdkBuildProjectRole2407DBD0"
+            "Ref": "BasicAuthPipelineBuildSynthStepCdkBuildProjectRoleBEE90D4E"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/Pipeline/Build/SynthStep/CdkBuildProject/Role/DefaultPolicy/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Build/SynthStep/CdkBuildProject/Role/DefaultPolicy/Resource"
       }
     },
-    "PipelineBuildSynthStepCdkBuildProject7FBB5116": {
+    "BasicAuthPipelineBuildSynthStepCdkBuildProject58E50159": {
       "Type": "AWS::CodeBuild::Project",
       "Properties": {
         "Artifacts": {
@@ -751,12 +751,12 @@
         },
         "ServiceRole": {
           "Fn::GetAtt": [
-            "PipelineBuildSynthStepCdkBuildProjectRole2407DBD0",
+            "BasicAuthPipelineBuildSynthStepCdkBuildProjectRoleBEE90D4E",
             "Arn"
           ]
         },
         "Source": {
-          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g aws-cdk\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"npm ci\",\n        \"npm run build\",\n        \"npx cdk synth\"\n      ]\n    }\n  },\n  \"artifacts\": {\n    \"base-directory\": \"cdk.out\",\n    \"files\": \"**/*\"\n  }\n}",
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g yarn\",\n        \"yarn global add aws-cdk\",\n        \"yarn global add esbuild\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"yarn\",\n        \"ls\",\n        \"pwd\",\n        \"sudo chmod u+x *.sh\",\n        \"./esbuild.sh\",\n        \"npx cdk synth\"\n      ]\n    }\n  },\n  \"artifacts\": {\n    \"base-directory\": \"cdk.out\",\n    \"files\": \"**/*\"\n  }\n}",
           "Type": "CODEPIPELINE"
         },
         "Cache": {
@@ -766,10 +766,10 @@
         "EncryptionKey": "alias/aws/s3"
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/Pipeline/Build/SynthStep/CdkBuildProject/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Build/SynthStep/CdkBuildProject/Resource"
       }
     },
-    "PipelineBuildSynthStepCodePipelineActionRoleC55B7A0B": {
+    "BasicAuthPipelineBuildSynthStepCodePipelineActionRole19AE6F04": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -801,10 +801,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/Pipeline/Build/SynthStep/CodePipelineActionRole/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Build/SynthStep/CodePipelineActionRole/Resource"
       }
     },
-    "PipelineBuildSynthStepCodePipelineActionRoleDefaultPolicy6DCD1F45": {
+    "BasicAuthPipelineBuildSynthStepCodePipelineActionRoleDefaultPolicy2AEE5BBD": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -818,7 +818,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "PipelineBuildSynthStepCdkBuildProject7FBB5116",
+                  "BasicAuthPipelineBuildSynthStepCdkBuildProject58E50159",
                   "Arn"
                 ]
               }
@@ -826,18 +826,18 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "PipelineBuildSynthStepCodePipelineActionRoleDefaultPolicy6DCD1F45",
+        "PolicyName": "BasicAuthPipelineBuildSynthStepCodePipelineActionRoleDefaultPolicy2AEE5BBD",
         "Roles": [
           {
-            "Ref": "PipelineBuildSynthStepCodePipelineActionRoleC55B7A0B"
+            "Ref": "BasicAuthPipelineBuildSynthStepCodePipelineActionRole19AE6F04"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/Pipeline/Build/SynthStep/CodePipelineActionRole/DefaultPolicy/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/Build/SynthStep/CodePipelineActionRole/DefaultPolicy/Resource"
       }
     },
-    "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleD6D4E5CF": {
+    "BasicAuthPipelineUpdatePipelineSelfMutateCodePipelineActionRole945CBFF4": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -869,10 +869,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/Resource"
       }
     },
-    "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleDefaultPolicyE626265B": {
+    "BasicAuthPipelineUpdatePipelineSelfMutateCodePipelineActionRoleDefaultPolicy949EDFF1": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -886,7 +886,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "PipelineUpdatePipelineSelfMutationDAA41400",
+                  "BasicAuthPipelineUpdatePipelineSelfMutation9F3AFB7F",
                   "Arn"
                 ]
               }
@@ -894,18 +894,18 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleDefaultPolicyE626265B",
+        "PolicyName": "BasicAuthPipelineUpdatePipelineSelfMutateCodePipelineActionRoleDefaultPolicy949EDFF1",
         "Roles": [
           {
-            "Ref": "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleD6D4E5CF"
+            "Ref": "BasicAuthPipelineUpdatePipelineSelfMutateCodePipelineActionRole945CBFF4"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/DefaultPolicy/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/DefaultPolicy/Resource"
       }
     },
-    "PipelineUpdatePipelineSelfMutationRole57E559E8": {
+    "BasicAuthPipelineUpdatePipelineSelfMutationRoleB200B2D0": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -922,10 +922,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/UpdatePipeline/SelfMutation/Role/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/UpdatePipeline/SelfMutation/Role/Resource"
       }
     },
-    "PipelineUpdatePipelineSelfMutationRoleDefaultPolicyA225DA4E": {
+    "BasicAuthPipelineUpdatePipelineSelfMutationRoleDefaultPolicy31A21D21": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -956,7 +956,7 @@
                       },
                       ":log-group:/aws/codebuild/",
                       {
-                        "Ref": "PipelineUpdatePipelineSelfMutationDAA41400"
+                        "Ref": "BasicAuthPipelineUpdatePipelineSelfMutation9F3AFB7F"
                       }
                     ]
                   ]
@@ -979,7 +979,7 @@
                       },
                       ":log-group:/aws/codebuild/",
                       {
-                        "Ref": "PipelineUpdatePipelineSelfMutationDAA41400"
+                        "Ref": "BasicAuthPipelineUpdatePipelineSelfMutation9F3AFB7F"
                       },
                       ":*"
                     ]
@@ -1014,7 +1014,7 @@
                     },
                     ":report-group/",
                     {
-                      "Ref": "PipelineUpdatePipelineSelfMutationDAA41400"
+                      "Ref": "BasicAuthPipelineUpdatePipelineSelfMutation9F3AFB7F"
                     },
                     "-*"
                   ]
@@ -1066,7 +1066,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "PipelineArtifactsBucketAEA9A052",
+                    "BasicAuthPipelineArtifactsBucket04D85917",
                     "Arn"
                   ]
                 },
@@ -1076,7 +1076,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "PipelineArtifactsBucketAEA9A052",
+                          "BasicAuthPipelineArtifactsBucket04D85917",
                           "Arn"
                         ]
                       },
@@ -1089,18 +1089,18 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "PipelineUpdatePipelineSelfMutationRoleDefaultPolicyA225DA4E",
+        "PolicyName": "BasicAuthPipelineUpdatePipelineSelfMutationRoleDefaultPolicy31A21D21",
         "Roles": [
           {
-            "Ref": "PipelineUpdatePipelineSelfMutationRole57E559E8"
+            "Ref": "BasicAuthPipelineUpdatePipelineSelfMutationRoleB200B2D0"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/UpdatePipeline/SelfMutation/Role/DefaultPolicy/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/UpdatePipeline/SelfMutation/Role/DefaultPolicy/Resource"
       }
     },
-    "PipelineUpdatePipelineSelfMutationDAA41400": {
+    "BasicAuthPipelineUpdatePipelineSelfMutation9F3AFB7F": {
       "Type": "AWS::CodeBuild::Project",
       "Properties": {
         "Artifacts": {
@@ -1115,7 +1115,7 @@
         },
         "ServiceRole": {
           "Fn::GetAtt": [
-            "PipelineUpdatePipelineSelfMutationRole57E559E8",
+            "BasicAuthPipelineUpdatePipelineSelfMutationRoleB200B2D0",
             "Arn"
           ]
         },
@@ -1128,10 +1128,10 @@
         },
         "Description": "Pipeline step BasicAuthLambdaStack/Pipeline/UpdatePipeline/SelfMutate",
         "EncryptionKey": "alias/aws/s3",
-        "Name": "WorkshopPipeline-selfupdate"
+        "Name": "BasicAuthPipeline-selfupdate"
       },
       "Metadata": {
-        "aws:cdk:path": "BasicAuthLambdaStack/Pipeline/UpdatePipeline/SelfMutation/Resource"
+        "aws:cdk:path": "BasicAuthLambdaStack/BasicAuthPipeline/UpdatePipeline/SelfMutation/Resource"
       }
     },
     "CDKMetadata": {
