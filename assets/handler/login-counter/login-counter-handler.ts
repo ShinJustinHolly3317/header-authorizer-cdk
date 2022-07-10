@@ -2,8 +2,7 @@ import { DynamoDB } from 'aws-sdk';
 
 exports.handler = async (event: any) => {
   console.log("request:", JSON.stringify(event, undefined, 2))
-  const { authorizer, http } = event.requestContext;
-  const { isAuthorized } = authorizer.lambda;
+  const { http } = event.requestContext;
   const { path } = http;
 
   // create aws clients
