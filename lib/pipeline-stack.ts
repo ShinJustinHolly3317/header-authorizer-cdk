@@ -30,7 +30,6 @@ export class WorkshopPipelineStack extends cdk.Stack {
         })
       });
 
-      const stage = new BasicAuthPipelineStage(this, 'BasicAuthPipelineStage')
-      pipeline.addStage(stage)
+      pipeline.addStage(new BasicAuthPipelineStage(this, 'BasicAuthPipelineStage'))
     }
 }

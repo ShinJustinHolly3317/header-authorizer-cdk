@@ -4,8 +4,7 @@ import { Construct } from 'constructs';
 
 export class BasicAuthPipelineStage extends Stage {
     constructor(scope: Construct, id: string, props?: StageProps) {
-        super(scope, id, props);
-
-        new BasicAuthLambdaStack(this, 'BasicAuthLambdaStack');
+      super(scope, id, props);
+      new BasicAuthLambdaStack(this, 'BasicAuthLambdaStack');
     }
 }
