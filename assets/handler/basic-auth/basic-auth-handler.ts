@@ -1,5 +1,5 @@
 exports.handler = async function(event: any) {
-  const auth = event.headers.apiKey
+  const auth = event.headers.apikey
   
   const [account, password] = Buffer.from(auth.split(' ')[1], 'base64').toString().split(':')
   

@@ -1,3 +1,4 @@
 node_modules
 credentials
 cdk.out
+build
