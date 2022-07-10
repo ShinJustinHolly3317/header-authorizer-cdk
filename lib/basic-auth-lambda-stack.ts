@@ -8,7 +8,7 @@ import { HttpLambdaAuthorizer, HttpLambdaResponseType } from '@aws-cdk/aws-apiga
 import { HttpLambdaIntegration } from '@aws-cdk/aws-apigatewayv2-integrations-alpha';
 
 export class BasicAuthLambdaStack extends Stack {
-  constructor(scope: Construct, id: string, props: StackProps) {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     const basicAuthHandler = new lambda.Function(this, 'basicAuthHalder', {
