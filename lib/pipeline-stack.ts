@@ -17,12 +17,12 @@ export class WorkshopPipelineStack extends cdk.Stack {
           synth: new CodeBuildStep('SynthStep', {
                   input: CodePipelineSource.codeCommit(repo, 'master'),
                   installCommands: [
-                      'npm install -g aws-cdk',
-                      'npm install -g yarn'
+                    'npm install -g yarn',
+                    'yarn add -g aws-cdk'
                   ],
                   commands: [
                       'yarn',
-                      'yarn run build',
+                      'sh ./esbuild.sh',
                       'npx cdk synth'
                   ]
               }
