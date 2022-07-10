@@ -12,25 +12,25 @@ export class WorkshopPipelineStack extends cdk.Stack {
             repositoryName: "BasicAuthHandler"
         });
 
-      //   const pipeline = new CodePipeline(this, 'BasicAuthPipeline', {
-      //     pipelineName: 'BasicAuthPipeline',
+        const pipeline = new CodePipeline(this, 'BasicAuthPipeline', {
+          pipelineName: 'BasicAuthPipeline',
           
-      //     synth: new CodeBuildStep('SynthStep', {
-      //             input: CodePipelineSource.codeCommit(repo, 'master'),
-      //             installCommands: [
-      //               'npm install -g yarn',
-      //               'yarn global add aws-cdk',
-      //               'yarn global add esbuild'
-      //             ],
-      //             commands: [
-      //                 'yarn',
-      //                 'sudo chmod u+x *.sh',
-      //                 './esbuild.sh',
-      //                 'npx cdk synth'
-      //             ]
-      //         }
-      //     )
-      // });
+          synth: new CodeBuildStep('SynthStep', {
+                  input: CodePipelineSource.codeCommit(repo, 'master'),
+                  installCommands: [
+                    'npm install -g yarn',
+                    'yarn global add aws-cdk',
+                    'yarn global add esbuild'
+                  ],
+                  commands: [
+                      'yarn',
+                      'sudo chmod u+x *.sh',
+                      './esbuild.sh',
+                      'npx cdk synth'
+                  ]
+              }
+          )
+      });
 
       // const deploy = new BasicAuthPipelineStage(this, 'BasicDeploy')
       // const deployStage = pipeline.addStage(deploy)
