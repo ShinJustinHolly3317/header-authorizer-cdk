@@ -24,6 +24,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
                   ],
                   commands: [
                       'yarn',
+                      'sudo chmod u+x *.sh',
                       './esbuild.sh',
                       'npx cdk synth'
                   ]
