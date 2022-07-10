@@ -1,7 +1,7 @@
 {
   "version": "16.0.0",
   "files": {
-    "1766bb13d6ad652f579a793a7f2fce190b3123a05121ef3219f4ff4ae2091f4d": {
+    "56cd953cf78ceed90f21964b23e75ca7c57ea888a279b32b066d3c236da8ca44": {
       "source": {
         "path": "BasicAuthLambdaStack.template.json",
         "packaging": "file"
@@ -9,7 +9,7 @@
       "destinations": {
         "current_account-current_region": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "1766bb13d6ad652f579a793a7f2fce190b3123a05121ef3219f4ff4ae2091f4d.json",
+          "objectKey": "56cd953cf78ceed90f21964b23e75ca7c57ea888a279b32b066d3c236da8ca44.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }
