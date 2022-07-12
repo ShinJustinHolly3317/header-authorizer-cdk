@@ -37,7 +37,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
         envFromCfnOutputs: {
           ENDPOINT_URL: basicAuthPipelineStage.hcEndpoint,
         },
-        commands: ['curl -Ssf $ENDPOINT_URL', 'curl -Ssf -H "apikey:test YWRtaW46c2VjcmV0" $ENDPOINT_URL/login']
+        commands: ['curl -Ssf -H "apikey:test YWRtaW46c2VjcmV0" $ENDPOINT_URL/login']
       }))
 
     }
