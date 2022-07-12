@@ -8,6 +8,7 @@ import { HttpLambdaAuthorizer, HttpLambdaResponseType } from '@aws-cdk/aws-apiga
 import { HttpLambdaIntegration } from '@aws-cdk/aws-apigatewayv2-integrations-alpha';
 
 export class BasicAuthLambdaStack extends Stack {
+  public readonly hcEndpoint: cdk.CfnOutput;
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
@@ -52,5 +53,9 @@ export class BasicAuthLambdaStack extends Stack {
       integration: new HttpLambdaIntegration('loginCounterApiIntergration', loginCounterHandler),
       authorizer: authorizer
     });
+
+    this.hcEndpoint = new cdk.CfnOutput(this, 'GatewayUrl', {
+      value: loginCounterApi.url
+    })
   }
 }
