@@ -30,6 +30,15 @@ export class WorkshopPipelineStack extends cdk.Stack {
         })
       });
 
-      pipeline.addStage(new BasicAuthPipelineStage(this, 'BasicAuthPipelineStage'))
+      const basicAuthPipelineStage = new BasicAuthPipelineStage(this, 'BasicAuthPipelineStage')
+      const deployStage = pipeline.addStage(basicAuthPipelineStage);
+      deployStage.addPost(new CodeBuildStep('TestEndpoint', {
+        projectName: 'TestEndpoint',
+        envFromCfnOutputs: {
+          ENDPOINT_URL: basicAuthPipelineStage.hcEndpoint,
+        },
+        commands: ['curl -Ssf $ENDPOINT_URL', 'curl -Ssf -H "apikey:test YWRtaW46c2VjcmV0" $ENDPOINT_URL/login']
+      }))
+
     }
 }

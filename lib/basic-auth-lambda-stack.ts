@@ -9,6 +9,7 @@ import { HttpLambdaIntegration } from '@aws-cdk/aws-apigatewayv2-integrations-al
 
 export class BasicAuthLambdaStack extends Stack {
   public readonly hcEndpoint: cdk.CfnOutput;
+
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
