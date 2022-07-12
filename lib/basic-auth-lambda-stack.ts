@@ -55,7 +55,7 @@ export class BasicAuthLambdaStack extends Stack {
     });
 
     this.hcEndpoint = new cdk.CfnOutput(this, 'GatewayUrl', {
-      value: loginCounterApi.url
+      value: loginCounterApi.url!
     })
   }
 }
