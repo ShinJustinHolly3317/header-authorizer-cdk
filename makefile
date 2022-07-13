@@ -1,4 +1,7 @@
 .PHONY: build
-build: 
+clear: 
 	cdk destroy
-	cdk deploy --hotswap
+codecommit:
+	cdk deploy CreateCodeCommitStack
+pipepline:
+	cdk deploy BasicAuthLambdaPipelineStack
