@@ -4,13 +4,11 @@ import * as codecommit from 'aws-cdk-lib/aws-codecommit';
 import {CodeBuildStep, CodePipeline, CodePipelineSource} from "aws-cdk-lib/pipelines";
 import { BasicAuthPipelineStage } from './pipeline-stage'
 
-export class WorkshopPipelineStack extends cdk.Stack {
+export class BasicauthPipelineStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
       super(scope, id, props);
 
-      const repo = new codecommit.Repository(this, 'BasicAuthHandler', {
-        repositoryName: "BasicAuthHandler"
-      });
+      const repo = codecommit.Repository.fromRepositoryName(this, 'BasicAuthHandler', 'BasicAuthHandler')
 
       const pipeline = new CodePipeline(this, 'BasicAuthPipeline', {
         pipelineName: 'BasicAuthPipeline',
