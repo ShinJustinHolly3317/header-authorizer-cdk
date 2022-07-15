@@ -1,6 +1,6 @@
 .PHONY: build
 clear: 
-	cdk destroy
+	cdk destroy --all
 codecommit:
 	cdk deploy CreateCodeCommitStack
 pipepline:
